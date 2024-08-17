@@ -80,7 +80,39 @@ with sync_playwright() as p:
         for job_link in jobs_hrefs:
             page.goto(job_link)
             time.sleep(3)
-            print("Redirected successfully")
+            # print("Redirected successfully")
+            #Job URL
+            
+            job_url = page.url
+            print(job_url)
+            if page.locator("h1.jobsearch-JobInfoHeader-title.css-1b4cr5z.e1tiznh50").count() > 0:
+                Job_Title = page.locator("h1.jobsearch-JobInfoHeader-title.css-1b4cr5z.e1tiznh50").inner_text()
+                print(Job_Title)
+                
+                
+            if page.locator("a.css-1ioi40n.e19afand0").count() > 0:
+                Company_Name = page.locator("a.css-1ioi40n.e19afand0").inner_text()
+                Company_Website = page.locator("a.css-1ioi40n.e19afand0").get_attribute("href")
+                print(Company_Name, Company_Website)
+                
+            if page.locator("div.css-45str8.eu4oa1w0").count() > 0:
+                Location = page.locator("div.css-45str8.eu4oa1w0").inner_text()
+                print(Location)
+                
+            
+            if page.locator('#jobDescriptionText').count() > 0:
+                # Get the text from the div
+                full_job_info = page.locator('#jobDescriptionText').inner_text()
+                print(full_job_info)
+                
+                
+            
+            # Salary
+            # Job_Description
+            # Job_Type # Full-Time, Part-Time
+            # Posting_Date
+            # Job_URL
+
             
         
     
@@ -93,12 +125,3 @@ with sync_playwright() as p:
     
     page.close()
     browser.close()
-              
-
-# # Run the scraping process
-# if __name__ == "__main__":
-#     try:
-#         data = scrape_all_pages()
-#         print(data)
-#     except KeyboardInterrupt:
-#         print("Process interrupted")
